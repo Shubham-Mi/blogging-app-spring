@@ -1,5 +1,6 @@
 package com.example.blogapp.users;
 
+import com.example.blogapp.security.JwtService;
 import com.example.blogapp.users.dtos.CreateUserDto;
 import com.example.blogapp.users.dtos.LoginUserDto;
 import com.example.blogapp.users.dtos.UserResponseDto;
@@ -12,21 +13,26 @@ public class UsersService {
   private final UsersRepository usersRepository;
   private final ModelMapper modelMapper;
   private final PasswordEncoder passwordEncoder;
+  private final JwtService jwtService;
 
   public UsersService(
     UsersRepository usersRepository,
     ModelMapper modelMapper,
-    PasswordEncoder passwordEncoder) {
+    PasswordEncoder passwordEncoder,
+    JwtService jwtService) {
     this.usersRepository = usersRepository;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
+    this.jwtService = jwtService;
   }
 
   public UserResponseDto creteUser(CreateUserDto user) {
     UserEntity newUser = modelMapper.map(user, UserEntity.class);
     newUser.setPassword(passwordEncoder.encode(user.getPassword()));
     UserEntity savedUser = usersRepository.save(newUser);
-    return modelMapper.map(savedUser, UserResponseDto.class);
+    UserResponseDto response = modelMapper.map(savedUser, UserResponseDto.class);
+    response.setToken(jwtService.createJwt(newUser.getUsername()));
+    return response;
   }
 
   public UserResponseDto verifyUser(LoginUserDto request) {
