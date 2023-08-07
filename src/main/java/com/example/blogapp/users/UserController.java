@@ -1,6 +1,7 @@
 package com.example.blogapp.users;
 
 import com.example.blogapp.users.dtos.CreateUserDto;
+import com.example.blogapp.users.dtos.LoginUserDto;
 import com.example.blogapp.users.dtos.UserResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,5 +23,11 @@ public class UserController {
     public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto user) {
         UserResponseDto newUser = usersService.creteUser(user);
         return ResponseEntity.created(URI.create("/profiles" + newUser.getId())).body(newUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponseDto> loginUser(@RequestBody LoginUserDto user) {
+        UserResponseDto verifiedUser = usersService.verifyUser(user);
+        return ResponseEntity.ok(verifiedUser);
     }
 }

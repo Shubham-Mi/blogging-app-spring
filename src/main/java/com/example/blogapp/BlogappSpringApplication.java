@@ -15,7 +15,7 @@ public class BlogappSpringApplication {
 
 	@Bean
 	@Scope("singleton")
-	ModelMapper modelMapper() {
+	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
 
