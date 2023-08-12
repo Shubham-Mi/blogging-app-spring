@@ -1,10 +1,12 @@
 package com.example.blogapp.security;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class JwtServiceTest {
+
   private JwtService jwtService() {
     return new JwtService();
   }

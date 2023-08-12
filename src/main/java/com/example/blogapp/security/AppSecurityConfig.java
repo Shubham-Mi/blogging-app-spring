@@ -13,27 +13,28 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig {
+
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
   public AppSecurityConfig(JwtService jwtService, UsersService usersService) {
     jwtAuthenticationFilter = new JwtAuthenticationFilter(
-      new JwtAuthenticationManager(
-        jwtService,
-        usersService
-      )
+        new JwtAuthenticationManager(
+            jwtService,
+            usersService
+        )
     );
   }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.cors().disable().csrf().disable()
-      .authorizeHttpRequests(authz -> authz
-        .requestMatchers(HttpMethod.GET, "/about").permitAll()
-        .requestMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
-        .anyRequest().authenticated()
-      )
-      .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .authorizeHttpRequests(authz -> authz
+            .requestMatchers(HttpMethod.GET, "/about").permitAll()
+            .requestMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
+            .anyRequest().authenticated()
+        )
+        .addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class)
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     return http.build();
   }
 }

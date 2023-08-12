@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 public class JwtAuthenticationManager implements AuthenticationManager {
+
   private final JwtService jwtService;
   private final UsersService usersService;
 

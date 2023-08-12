@@ -10,16 +10,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsersService {
+
   private final UsersRepository usersRepository;
   private final ModelMapper modelMapper;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
 
   public UsersService(
-    UsersRepository usersRepository,
-    ModelMapper modelMapper,
-    PasswordEncoder passwordEncoder,
-    JwtService jwtService) {
+      UsersRepository usersRepository,
+      ModelMapper modelMapper,
+      PasswordEncoder passwordEncoder,
+      JwtService jwtService) {
     this.usersRepository = usersRepository;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;

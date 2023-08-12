@@ -1,12 +1,12 @@
 package com.example.blogapp.security;
 
 import com.example.blogapp.users.dtos.UserResponseDto;
+import java.util.Collection;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
-
 public class JwtAuthentication implements Authentication {
+
   private final String jwtString;
   private UserResponseDto user;
 
