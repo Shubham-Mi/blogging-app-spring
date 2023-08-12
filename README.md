@@ -2,7 +2,7 @@
 
 ## SCHEMA
 
-![](./blogging-app.drawio.svg)
+![Blogging App Schema](./blogging-app.drawio.svg)
 
 ## JSON Entities
 
